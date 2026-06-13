@@ -33,8 +33,11 @@
   （已排查：asound.conf 中 `card 0` 写法本身无误，多次手动复现测试
   amixer/aplay/speaker-test/retroarch 均无法重现；推测是该机型 HDMI 音效
   绑定在 HDMI 显示输出上，ES↔RetroArch 切换瞬间 KMSDRM 重新协商显示模式时
-  `/proc/asound/cards` 短暂消失导致的硬件时序竞态，属于无害的瞬间讯息，
-  目前判定不修复；如需完全消除可考虑将 ES/RetroArch 的 stderr 导向 /dev/null，
-  但会牺牲其他错误讯息的可见性）
+  `/proc/asound/cards` 短暂消失导致的硬件时序竞态，属于无害的瞬间讯息）
+- [x] 安装互动问答新增第 4 项：「游戏切换时偶尔会闪过一行 ALSA 错误讯息（无害），
+  是否隐藏？[Y/n]」，默认 Y。选 Y 时，`es4armbian.service` 的 `ExecStart` 改为
+  `/bin/bash -c 'exec /opt/emulationstation/emulationstation 2> >(grep -v --line-buffered "ALSA lib" >&2)'`，
+  仅过滤含 "ALSA lib" 字串的 stderr 行（RetroArch 作为子进程继承同一 fd，
+  也会被一并过滤），不影响其他错误讯息的可见性
 - [ ] 说明 RetroArch `audio_driver` 已从默认的 `pulse`（无 PulseAudio，导致游戏内无声音）
   改为 `alsa`

@@ -13,7 +13,14 @@ GAME_HOME="$(getent passwd "$GAME_USER" | cut -d: -f6)"
 log "停用 tty1 的 getty，避免与自动登入服务抢占终端"
 systemctl disable --now getty@tty1.service 2>/dev/null || true
 
-log "设定 systemd 服务：以 $GAME_USER 自动登入 tty1 并启动 EmulationStation（KMSDRM）"
+if [ "$HIDE_ALSA_ERRORS" = "yes" ]; then
+    log "设定 systemd 服务：以 $GAME_USER 自动登入 tty1 并启动 EmulationStation（KMSDRM，过滤 ALSA 错误讯息）"
+    EXEC_START='/bin/bash -c '\''exec /opt/emulationstation/emulationstation 2> >(grep -v --line-buffered "ALSA lib" >&2)'\'''
+else
+    log "设定 systemd 服务：以 $GAME_USER 自动登入 tty1 并启动 EmulationStation（KMSDRM）"
+    EXEC_START='/opt/emulationstation/emulationstation'
+fi
+
 cat > /etc/systemd/system/es4armbian.service <<EOF
 [Unit]
 Description=es4armbian EmulationStation (KMSDRM)
@@ -28,7 +35,7 @@ TTYPath=/dev/tty1
 StandardInput=tty
 StandardOutput=tty
 Environment=SDL_VIDEODRIVER=kmsdrm
-ExecStart=/opt/emulationstation/emulationstation
+ExecStart=$EXEC_START
 Restart=always
 RestartSec=2
 

@@ -91,10 +91,18 @@ echo ""
 GAME_PASSWORD="$(ask "3) 请设定 game 使用者密码（直接 Enter 使用预设 1234）: " "1234")"
 
 echo ""
+HIDE_ALSA_ERRORS="$(ask "4) 游戏切换时偶尔会闪过一行 ALSA 错误讯息（无害），是否隐藏？[Y/n]: " "y")"
+case "$HIDE_ALSA_ERRORS" in
+    [Nn]*) HIDE_ALSA_ERRORS="no" ;;
+    *) HIDE_ALSA_ERRORS="yes" ;;
+esac
+
+echo ""
 echo "===== 设定确认 ====="
 echo "隐藏开机跑码: $HIDE_BOOTLOG"
 echo "安装平台: $PLATFORMS"
 echo "game 密码: $GAME_PASSWORD"
+echo "隐藏 ALSA 错误讯息: $HIDE_ALSA_ERRORS"
 echo "====================="
 echo ""
 
@@ -102,6 +110,7 @@ cat > "$CONFIG_FILE" <<EOF
 HIDE_BOOTLOG="$HIDE_BOOTLOG"
 PLATFORMS="$PLATFORMS"
 GAME_PASSWORD="$GAME_PASSWORD"
+HIDE_ALSA_ERRORS="$HIDE_ALSA_ERRORS"
 EOF
 
 bash "$SCRIPT_DIR/01-prep.sh"

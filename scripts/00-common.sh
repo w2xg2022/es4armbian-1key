@@ -18,11 +18,12 @@ require_root() {
     fi
 }
 
-# 载入互动问答阶段写入的设定（HIDE_BOOTLOG / PLATFORMS / GAME_PASSWORD）
+# 载入互动问答阶段写入的设定（HIDE_BOOTLOG / PLATFORMS / GAME_PASSWORD / HIDE_ALSA_ERRORS）
 load_config() {
     HIDE_BOOTLOG="${HIDE_BOOTLOG:-yes}"
     PLATFORMS="${PLATFORMS:-fc sfc}"
     GAME_PASSWORD="${GAME_PASSWORD:-1234}"
+    HIDE_ALSA_ERRORS="${HIDE_ALSA_ERRORS:-yes}"
     if [ -f "$CONFIG_FILE" ]; then
         # shellcheck disable=SC1090
         . "$CONFIG_FILE"
