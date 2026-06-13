@@ -14,6 +14,11 @@ ES_RELEASE_URL="https://github.com/w2xg2022/es4armbian/releases/download/latest/
 GAME_HOME="$(getent passwd "$GAME_USER" | cut -d: -f6)"
 ES_HOME_CFG="$GAME_HOME/.emulationstation"
 
+log "安装 EmulationStation 所需的动态库（libvlc 等）"
+export DEBIAN_FRONTEND=noninteractive
+apt-get update -y
+apt-get install -y --no-install-recommends libvlc5 libvlccore9 vlc-plugin-base
+
 log "下载 EmulationStation (es4armbian latest release)"
 TMPZIP="/tmp/es4armbian-1key/emulationstation.zip"
 mkdir -p /tmp/es4armbian-1key
