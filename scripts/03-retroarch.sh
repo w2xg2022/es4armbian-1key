@@ -12,19 +12,10 @@ ensure_game_user
 GAME_HOME="$(getent passwd "$GAME_USER" | cut -d: -f6)"
 RA_CFG_DIR="$GAME_HOME/.config/retroarch"
 
-log "安装 RetroArch 与所选平台的 core：$PLATFORMS"
+log "安装 RetroArch"
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -y
-CORE_PKGS="retroarch"
-for code in $PLATFORMS; do
-    pkg="${PLATFORM_PKG[$code]:-}"
-    if [ -z "$pkg" ]; then
-        warn "未知平台代号 $code，略过"
-        continue
-    fi
-    CORE_PKGS="$CORE_PKGS $pkg"
-done
-apt-get install -y --no-install-recommends $CORE_PKGS
+apt-get install -y --no-install-recommends retroarch
 
 log "套用使用者偏好设定 (retroarch.cfg：简体中文介面、SELECT+START 退出游戏等)"
 fetch_asset "retroarch/retroarch.cfg"
@@ -44,17 +35,20 @@ for f in regular.ttf bold.ttf; do
 done
 chown -R "$GAME_USER:$GAME_USER" "$RA_CFG_DIR"
 
-log "建立 core 连结到 ~/.config/retroarch/cores（与 es_systems.cfg 路径对应）"
+log "从 libretro buildbot 下载所选平台的 core：$PLATFORMS"
 mkdir -p "$RA_CFG_DIR/cores"
 for code in $PLATFORMS; do
     core="${PLATFORM_CORE[$code]:-}"
-    [ -z "$core" ] && continue
-    src="/usr/lib/$(uname -m)-linux-gnu/libretro/$core"
-    if [ -f "$src" ]; then
-        ln -sf "$src" "$RA_CFG_DIR/cores/$core"
-    else
-        warn "找不到 $src，请确认 ${PLATFORM_PKG[$code]} 套件的安装路径"
+    if [ -z "$core" ]; then
+        warn "未知平台代号 $code，略过"
+        continue
     fi
+    [ -f "$RA_CFG_DIR/cores/$core" ] && continue
+    log "下载 $core"
+    tmpzip="/tmp/es4armbian-1key/${core}.zip"
+    curl -fsSL "$CORE_BUILDBOT_BASE/${core}.zip" -o "$tmpzip"
+    unzip -oq "$tmpzip" -d "$RA_CFG_DIR/cores"
+    rm -f "$tmpzip"
 done
 chown -R "$GAME_USER:$GAME_USER" "$RA_CFG_DIR/cores"
 
