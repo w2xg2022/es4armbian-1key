@@ -66,4 +66,7 @@ else
     warn "找不到 Plymouth armbian 主题目录 ($THEME_DIR)，跳过开机画面替换"
 fi
 
+log "重新生成 initramfs，让 Plymouth 开机画面能在早期阶段就接管画面"
+update-initramfs -u
+
 log "阶段 2 完成（需重启才会生效；可用 '$ENV_FILE.orig' 还原）"

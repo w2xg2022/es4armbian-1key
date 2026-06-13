@@ -70,6 +70,22 @@ backup_once "$ES_HOME_CFG/es_settings.cfg"
 install -o "$GAME_USER" -g "$GAME_USER" -m 0644 \
     "$ASSETS_DIR/emulationstation/es_settings.cfg" "$ES_HOME_CFG/es_settings.cfg"
 
+THEME_NAME="es-theme-alekfull-EmueELEC"
+THEMES_DIR="$ES_HOME_CFG/themes"
+if [ ! -d "$THEMES_DIR/$THEME_NAME" ]; then
+    log "下载主题 $THEME_NAME"
+    THEME_ZIP="/tmp/es4armbian-1key/${THEME_NAME}.zip"
+    curl -fsSL "https://github.com/EmuELEC/${THEME_NAME}/archive/refs/heads/master.zip" -o "$THEME_ZIP"
+    rm -rf /tmp/es4armbian-1key/theme-extract
+    mkdir -p /tmp/es4armbian-1key/theme-extract "$THEMES_DIR"
+    unzip -oq "$THEME_ZIP" -d /tmp/es4armbian-1key/theme-extract
+    cp -a "/tmp/es4armbian-1key/theme-extract/${THEME_NAME}-master" "$THEMES_DIR/$THEME_NAME"
+    rm -f "$THEME_ZIP"
+    chown -R "$GAME_USER:$GAME_USER" "$THEMES_DIR"
+else
+    log "主题 $THEME_NAME 已存在，略过下载"
+fi
+
 for code in $PLATFORMS; do
     romdir="${PLATFORM_ROMDIR[$code]:-}"
     [ -z "$romdir" ] && continue
