@@ -24,16 +24,24 @@ backup_once "$RA_CFG_DIR/retroarch.cfg"
 install -o "$GAME_USER" -g "$GAME_USER" -m 0644 \
     "$ASSETS_DIR/retroarch/retroarch.cfg" "$RA_CFG_DIR/retroarch.cfg"
 
-log "套用中文选单字体修正（取代 ozone 主题预设字型，修正选单乱码）"
+log "套用中文选单字体修正（菜单为 xmb，修正 xmb_font 指向自订中文字体）"
 fetch_asset "fonts/regular.ttf"
 fetch_asset "fonts/bold.ttf"
-FONT_DIR="$RA_CFG_DIR/assets/ozone/fonts"
+FONT_DIR="$RA_CFG_DIR/assets/xmb/fonts"
 mkdir -p "$FONT_DIR"
 for f in regular.ttf bold.ttf; do
     backup_once "$FONT_DIR/$f"
     install -o "$GAME_USER" -g "$GAME_USER" -m 0644 "$ASSETS_DIR/fonts/$f" "$FONT_DIR/$f"
 done
 chown -R "$GAME_USER:$GAME_USER" "$RA_CFG_DIR"
+
+XMB_FONT_PATH="$FONT_DIR/regular.ttf"
+if grep -q '^xmb_font' "$RA_CFG_DIR/retroarch.cfg"; then
+    sed -i "s|^xmb_font = .*|xmb_font = \"$XMB_FONT_PATH\"|" "$RA_CFG_DIR/retroarch.cfg"
+else
+    echo "xmb_font = \"$XMB_FONT_PATH\"" >> "$RA_CFG_DIR/retroarch.cfg"
+fi
+chown "$GAME_USER:$GAME_USER" "$RA_CFG_DIR/retroarch.cfg"
 
 log "从 libretro buildbot 下载所选平台的 core：$PLATFORMS"
 mkdir -p "$RA_CFG_DIR/cores"
