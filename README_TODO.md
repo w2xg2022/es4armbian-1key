@@ -30,6 +30,11 @@
   整批显示到画面上；加入 `plymouth.ignore-serial-consoles` 让 Plymouth 正确接管画面后，
   此问题大幅改善（不再整面跑码），但 ES↔RetroArch 切换瞬间仍可能闪过单行
   `ALSA lib confmisc.c:165:(snd_config_get_card) Cannot get card index for 0` 错误讯息
-  （独立的小问题，与 asound.conf 的 card 0 设置有关，尚待修复）
+  （已排查：asound.conf 中 `card 0` 写法本身无误，多次手动复现测试
+  amixer/aplay/speaker-test/retroarch 均无法重现；推测是该机型 HDMI 音效
+  绑定在 HDMI 显示输出上，ES↔RetroArch 切换瞬间 KMSDRM 重新协商显示模式时
+  `/proc/asound/cards` 短暂消失导致的硬件时序竞态，属于无害的瞬间讯息，
+  目前判定不修复；如需完全消除可考虑将 ES/RetroArch 的 stderr 导向 /dev/null，
+  但会牺牲其他错误讯息的可见性）
 - [ ] 说明 RetroArch `audio_driver` 已从默认的 `pulse`（无 PulseAudio，导致游戏内无声音）
   改为 `alsa`
