@@ -91,6 +91,27 @@ for code in $PLATFORMS; do
     [ -z "$romdir" ] && continue
     mkdir -p "$GAME_HOME/ROMs/$romdir"
 done
+
+# 若 fc 平台已选用且 ROM 目录是空的，放入 240p Test Suite 作为示范 ROM，
+# 避免使用者首次开机时因没有任何游戏而无法操作 EmulationStation
+if [ -n "${PLATFORM_ROMDIR[fc]:-}" ]; then
+    FC_ROMDIR="$GAME_HOME/ROMs/${PLATFORM_ROMDIR[fc]}"
+    case " $PLATFORMS " in
+        *" fc "*)
+            if [ -d "$FC_ROMDIR" ] && [ -z "$(ls -A "$FC_ROMDIR" 2>/dev/null)" ]; then
+                log "FC ROM 目录为空，放入示范 ROM（240p Test Suite）"
+                fetch_asset "roms/fc/240pee.nes"
+                fetch_asset "roms/fc/gamelist.xml"
+                fetch_asset "roms/fc/media/images/240pee.png"
+                install -m 0644 "$ASSETS_DIR/roms/fc/240pee.nes" "$FC_ROMDIR/240pee.nes"
+                install -m 0644 "$ASSETS_DIR/roms/fc/gamelist.xml" "$FC_ROMDIR/gamelist.xml"
+                mkdir -p "$FC_ROMDIR/media/images"
+                install -m 0644 "$ASSETS_DIR/roms/fc/media/images/240pee.png" "$FC_ROMDIR/media/images/240pee.png"
+            fi
+            ;;
+    esac
+fi
+
 chown -R "$GAME_USER:$GAME_USER" "$GAME_HOME/ROMs" "$ES_HOME_CFG"
 
 log "阶段 4 完成（仅支援 KMSDRM 模式，由阶段 5 设定开机自动启动）"

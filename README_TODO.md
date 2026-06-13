@@ -41,3 +41,8 @@
   也会被一并过滤），不影响其他错误讯息的可见性
 - [ ] 说明 RetroArch `audio_driver` 已从默认的 `pulse`（无 PulseAudio，导致游戏内无声音）
   改为 `alsa`
+- [x] 说明 `04-emulationstation.sh` 新增：若选择安装 FC 平台且 ROM 目录为空，
+  会自动放入示范 ROM `240pee.nes`（240p Test Suite v0.23，作者 Damian Yerrick / pinobatch，
+  GNU GPL v2+ 授权，可自由使用），并附带 `gamelist.xml`（含简介文字）与截图，
+  让使用者首次开机时即使尚未上传 ROM，也能进入游戏列表查看与测试画面/控制器
+  （素材位于 `assets/roms/fc/`：`240pee.nes`、`gamelist.xml`、`media/images/240pee.png`）
