@@ -41,6 +41,14 @@
   也会被一并过滤），不影响其他错误讯息的可见性
 - [ ] 说明 RetroArch `audio_driver` 已从默认的 `pulse`（无 PulseAudio，导致游戏内无声音）
   改为 `alsa`
+- [ ] （待 make_es23 一并处理）「用户界面设置」退出问题：经实机录屏复现，
+  退出"用户界面设置"返回主菜单时（约 0.5 秒内），背景截图会短暂"变亮/泛白"
+  再恢复正常；退出其他子菜单（如平台设置等）不会出现。已排除 `reloadAll`
+  逻辑问题（源码本身已有"仅设置变更才 reload"的判断）与 ping 报错问题
+  （已另行修复，见下方 setcap 条目）。推测是 `GuiSettings`/`MenuComponent`
+  关闭动画时背景"变暗遮罩(dim overlay)"透明度短暂跳变导致一两帧过曝，
+  需查看 `es-app/src/guis/GuiSettings.cpp` 与 `MenuComponent` 的 dim/opacity
+  收尾动画逻辑，编译新版二进位后在 MD1000 上反复录屏验证
 - [x] 说明 `01-prep.sh` 新增 `setcap cap_net_raw+ep /bin/ping`：
   根因排查发现 ES 在开机/ES↔RetroArch 切换时会以 `ping -c 1 ... 223.5.5.5/8.8.8.8` 等
   侦测网络连通性（ApiSystem.cpp updateNetworkStatus），但 `game` 一般用户的 `ping`
