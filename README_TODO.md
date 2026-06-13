@@ -41,6 +41,11 @@
   也会被一并过滤），不影响其他错误讯息的可见性
 - [ ] 说明 RetroArch `audio_driver` 已从默认的 `pulse`（无 PulseAudio，导致游戏内无声音）
   改为 `alsa`
+- [x] 说明 `04-emulationstation.sh` 新增：部署 ES 主菜单背景音乐（BGM），
+  使用 CC0 授权曲目 "Famicommunist Manifesto"（出自 OpenGameArt 的
+  Fakebit/Chiptune Music Pack，作者声明 CC0、可自由使用），
+  放在 `~/.emulationstation/music/`（首次安装时若该目录为空才放入，
+  不覆盖使用者自行加入的音乐）；素材位于 `assets/music/famicommunist-manifesto.ogg`
 - [x] 说明 `04-emulationstation.sh` 新增：若选择安装 FC 平台且 ROM 目录为空，
   会自动放入示范 ROM `240pee.nes`（240p Test Suite v0.23，作者 Damian Yerrick / pinobatch，
   GNU GPL v2+ 授权，可自由使用），并附带 `gamelist.xml`（含简介文字）与截图，

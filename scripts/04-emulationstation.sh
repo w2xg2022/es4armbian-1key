@@ -112,6 +112,14 @@ if [ -n "${PLATFORM_ROMDIR[fc]:-}" ]; then
     esac
 fi
 
+log "部署主菜单背景音乐（BGM）"
+MUSIC_DIR="$ES_HOME_CFG/music"
+mkdir -p "$MUSIC_DIR"
+if [ -z "$(ls -A "$MUSIC_DIR" 2>/dev/null)" ]; then
+    fetch_asset "music/famicommunist-manifesto.ogg"
+    install -m 0644 "$ASSETS_DIR/music/famicommunist-manifesto.ogg" "$MUSIC_DIR/famicommunist-manifesto.ogg"
+fi
+
 chown -R "$GAME_USER:$GAME_USER" "$GAME_HOME/ROMs" "$ES_HOME_CFG"
 
 log "阶段 4 完成（仅支援 KMSDRM 模式，由阶段 5 设定开机自动启动）"
