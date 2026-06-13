@@ -2,7 +2,7 @@
 # core 档案直接从 libretro buildbot (aarch64 nightly) 下载，避免 apt 套件名称/版本不一致问题
 CORE_BUILDBOT_BASE="https://buildbot.libretro.com/nightly/linux/aarch64/latest"
 
-PLATFORM_CODES=(fc sfc md gba ps1)
+PLATFORM_CODES=(fc sfc md gba ps1 mame fbneo dos)
 
 declare -A PLATFORM_NAME=(
     [fc]="FC / 红白机 (Nintendo)"
@@ -10,6 +10,9 @@ declare -A PLATFORM_NAME=(
     [md]="MD / 世嘉 (Sega Genesis)"
     [gba]="GBA (Game Boy Advance)"
     [ps1]="PS1 (PlayStation)"
+    [mame]="MAME (街机, mame2003-plus)"
+    [fbneo]="FBNeo (街机/Neo Geo)"
+    [dos]="DOS (经典电脑游戏)"
 )
 
 declare -A PLATFORM_CORE=(
@@ -18,6 +21,9 @@ declare -A PLATFORM_CORE=(
     [md]="genesis_plus_gx_libretro.so"
     [gba]="mgba_libretro.so"
     [ps1]="pcsx_rearmed_libretro.so"
+    [mame]="mame2003_plus_libretro.so"
+    [fbneo]="fbneo_libretro.so"
+    [dos]="dosbox_pure_libretro.so"
 )
 
 declare -A PLATFORM_EXT=(
@@ -26,6 +32,9 @@ declare -A PLATFORM_EXT=(
     [md]=".md .bin .gen .MD .BIN .GEN .zip .ZIP"
     [gba]=".gba .GBA .zip .ZIP"
     [ps1]=".bin .cue .pbp .chd .BIN .CUE .PBP .CHD"
+    [mame]=".zip .ZIP"
+    [fbneo]=".zip .ZIP"
+    [dos]=".conf .bat .exe .iso .cue .m3u .zip .CONF .BAT .EXE .ISO .CUE .M3U .ZIP"
 )
 
 declare -A PLATFORM_ESNAME=(
@@ -34,6 +43,9 @@ declare -A PLATFORM_ESNAME=(
     [md]="genesis"
     [gba]="gba"
     [ps1]="psx"
+    [mame]="mame"
+    [fbneo]="fbneo"
+    [dos]="dos"
 )
 
 declare -A PLATFORM_FULLNAME=(
@@ -42,6 +54,9 @@ declare -A PLATFORM_FULLNAME=(
     [md]="Sega Genesis / Mega Drive"
     [gba]="Game Boy Advance"
     [ps1]="Sony PlayStation"
+    [mame]="Arcade (MAME)"
+    [fbneo]="Arcade (FinalBurn Neo)"
+    [dos]="MS-DOS"
 )
 
 declare -A PLATFORM_ROMDIR=(
@@ -50,6 +65,9 @@ declare -A PLATFORM_ROMDIR=(
     [md]="genesis"
     [gba]="gba"
     [ps1]="psx"
+    [mame]="mame"
+    [fbneo]="fbneo"
+    [dos]="dos"
 )
 
-DEFAULT_PLATFORMS="fc sfc"
+DEFAULT_PLATFORMS="fc sfc md gba ps1"
