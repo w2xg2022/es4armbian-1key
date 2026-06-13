@@ -24,8 +24,16 @@ rm -rf /tmp/es4armbian-1key/es-extract
 mkdir -p /tmp/es4armbian-1key/es-extract
 unzip -oq "$TMPZIP" -d /tmp/es4armbian-1key/es-extract
 
+# 若 zip 内有单一最上层目录（例如 emulationstation/），先把内容层级拉平
+SRC_DIR="/tmp/es4armbian-1key/es-extract"
+entries=("$SRC_DIR"/*)
+if [ "${#entries[@]}" -eq 1 ] && [ -d "${entries[0]}" ]; then
+    SRC_DIR="${entries[0]}"
+fi
+
 mkdir -p /opt/emulationstation
-cp -a /tmp/es4armbian-1key/es-extract/. /opt/emulationstation/
+rm -rf /opt/emulationstation/*
+cp -a "$SRC_DIR"/. /opt/emulationstation/
 chmod +x /opt/emulationstation/emulationstation
 
 log "依所选平台产生 es_systems.cfg：$PLATFORMS"
