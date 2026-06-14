@@ -23,16 +23,32 @@ curl -fsSL https://raw.githubusercontent.com/w2xg2022/es4armbian-1key/main/es4ar
 
 ## 各阶段说明
 
-| 阶段 | 脚本 | 内容 |
-| --- | --- | --- |
-| 1 | `scripts/01-prep.sh` | 安装共用依赖、建立 `game` 用户、部署 `batocera-wifi`/`batocera-config`/`batocera-bluetooth`/`emuelec-utils` 兼容脚本（使 ES 的网络/蓝牙设置菜单可用）、部署 ALSA 软件音量控制（启用 ES 音量设置菜单）、为 `ping` 赋予 `cap_net_raw` 权限（消除网络检测错误信息） |
-| 2 | `scripts/02-bootsplash.sh` | 隐藏开机跑码：设定 `armbianEnv.txt`（`verbosity=0`、`bootlogo=false`、`extraargs` 加入 `splash` 等参数及关键的 `plymouth.ignore-serial-consoles`），套用自定 Plymouth armbian 主题开机画面并重建 initramfs |
-| 3 | `scripts/03-retroarch.sh` | 安装 RetroArch + 所选平台 core，套用简体中文界面设定（含 SELECT+X 即时存档 / SELECT+Y 载入即时存档 / SELECT+START 退出游戏），修正菜单与 OSD 中文字体乱码（`xmb_font`/`video_font_path`），将 `audio_driver` 改为 `alsa`，并启用 Samba 供上传 ROM |
-| 4 | `scripts/04-emulationstation.sh` | 从 es4armbian Release 下载并部署 EmulationStation，依所选平台生成 `es_systems.cfg`，套用简体中文 `es_settings.cfg`，部署主菜单背景音乐（BGM），若选择 FC 平台且 ROM 目录为空则放入示范 ROM（240p Test Suite） |
-| 5 | `scripts/05-autostart.sh` | 设定开机自动登录并以 KMSDRM 模式启动 EmulationStation（`es4armbian.service`），可选择过滤 ALSA 错误信息 |
-| 6 | `scripts/06-controller-sync.sh` | 将 ES「手柄和蓝牙设置」中配置好的手柄按键（`es_input.cfg`）自动转换为 RetroArch autoconfig 设定文件，使手柄在 RetroArch / 各游戏核心中可直接使用，并通过 systemd path 单元在 ES 中重新设置手柄后自动重新生成 |
-
 每支脚本皆可单独重跑（idempotent），且会在修改设定前以 `<file>.orig` 备份原始文件，方便还原。
+
+### 阶段 1：环境检测与共用依赖（`01-prep.sh`）
+- 安装基础依赖（polkitd/pkexec、SDL2 mixer、NetworkManager、bluez 等），建立 `game` 用户
+- 部署 `batocera-wifi`/`batocera-config`/`batocera-bluetooth`/`emuelec-utils` 兼容脚本，使 ES 的网络/蓝牙设置菜单可用并消除游戏切换时的 "not found" 错误信息
+- 部署 ALSA 软件音量控制（启用 ES 音量设置菜单），并为 `ping` 赋予 `cap_net_raw` 权限
+
+### 阶段 2：隐藏开机跑码（`02-bootsplash.sh`）
+- 修改 `armbianEnv.txt`（`verbosity=0`、`bootlogo=false`，并加入 `splash`、`plymouth.ignore-serial-consoles` 等参数）
+- 套用自定 Plymouth armbian 主题开机画面并重建 initramfs
+
+### 阶段 3：部署 RetroArch（`03-retroarch.sh`）
+- 安装 RetroArch 及所选平台对应 core，套用简体中文界面与 SELECT 组合键热键（即时存档/读档/退出游戏）
+- 修正菜单与 OSD 中文字体乱码，`audio_driver` 改为 `alsa`，并启用 Samba 供上传 ROM
+
+### 阶段 4：部署 EmulationStation（`04-emulationstation.sh`）
+- 从 es4armbian Release 下载并部署 EmulationStation，依所选平台生成 `es_systems.cfg`
+- 套用简体中文 `es_settings.cfg`、部署主菜单背景音乐；若选择 FC 平台且 ROM 目录为空，预置示范 ROM（240p Test Suite）
+
+### 阶段 5：开机自动启动（`05-autostart.sh`）
+- 停用 tty1 的 getty，建立 `es4armbian.service`：以 `game` 用户自动登入 tty1，KMSDRM 模式启动 EmulationStation
+- 设定 `Restart=always`（异常退出自动重启）并启用开机自启
+
+### 阶段 6：手柄热键同步（`06-controller-sync.sh`）
+- 将 ES「手柄和蓝牙设置」中配置好的手柄按键（`es_input.cfg`）转换为 RetroArch autoconfig，使手柄在 RetroArch / 各游戏核心中可直接使用
+- 通过 systemd path 单元监听 `es_input.cfg`，在 ES 中重新设置手柄后自动重新生成配置
 
 ### 手柄热键同步行为说明（阶段6）
 
