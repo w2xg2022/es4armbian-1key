@@ -30,13 +30,13 @@ curl -fsSL https://raw.githubusercontent.com/w2xg2022/es4armbian-1key/main/es4ar
 | 3 | `scripts/03-retroarch.sh` | 安装 RetroArch + 所选平台 core，套用简体中文界面设定（含 SELECT+X 即时存档 / SELECT+Y 载入即时存档 / SELECT+START 退出游戏），修正菜单与 OSD 中文字体乱码（`xmb_font`/`video_font_path`），将 `audio_driver` 改为 `alsa`，并启用 Samba 供上传 ROM |
 | 4 | `scripts/04-emulationstation.sh` | 从 es4armbian Release 下载并部署 EmulationStation，依所选平台生成 `es_systems.cfg`，套用简体中文 `es_settings.cfg`，部署主菜单背景音乐（BGM），若选择 FC 平台且 ROM 目录为空则放入示范 ROM（240p Test Suite） |
 | 5 | `scripts/05-autostart.sh` | 设定开机自动登录并以 KMSDRM 模式启动 EmulationStation（`es4armbian.service`），可选择过滤 ALSA 错误信息 |
-| 6 | `scripts/06-controller-sync.sh` | 将 ES「控制器和蓝牙设置」中配置好的手柄按键（`es_input.cfg`）自动转换为 RetroArch autoconfig 设定文件，使手柄在 RetroArch / 各游戏核心中可直接使用，并通过 systemd path 单元在 ES 中重新设置手柄后自动重新生成 |
+| 6 | `scripts/06-controller-sync.sh` | 将 ES「手柄和蓝牙设置」中配置好的手柄按键（`es_input.cfg`）自动转换为 RetroArch autoconfig 设定文件，使手柄在 RetroArch / 各游戏核心中可直接使用，并通过 systemd path 单元在 ES 中重新设置手柄后自动重新生成 |
 
 每支脚本皆可单独重跑（idempotent），且会在修改设定前以 `<file>.orig` 备份原始文件，方便还原。
 
 ### 手柄热键同步行为说明（阶段6）
 
-`es-input-to-retroarch.py` 会将用户在 ES「控制器和蓝牙设置」里设定的按键，同步为对应设备的 RetroArch autoconfig：
+`es-input-to-retroarch.py` 会将用户在 ES「手柄和蓝牙设置」里设定的按键，同步为对应设备的 RetroArch autoconfig：
 
 - **X / Y 键**：同步 `input_x_btn`/`input_y_btn` 的同时，也会写入 `input_save_state_btn`/`input_load_state_btn`（即时存档/读档热键）。无论用户使用哪支手柄、X/Y 设定在哪个按键上，"SELECT+X 存档 / SELECT+Y 读档"都会自动跟随调整，不会因为更换手柄而失效。
 - **Hotkey enable（热键启用键，组合键里的"SELECT"部分）**：
