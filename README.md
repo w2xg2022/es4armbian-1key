@@ -23,9 +23,9 @@ curl -fsSL https://raw.githubusercontent.com/w2xg2022/es4armbian-1key/main/es4ar
 
 ## 已测试型号
 
-| 品牌 | 型号 | 芯片 | 内存+闪存 | Armbian 固件 | 测试结果 |
+| <sub>品牌</sub> | <sub>型号</sub> | <sub>芯片</sub> | <sub>内存+闪存</sub> | <sub>Armbian 固件</sub> | <sub>测试结果</sub> |
 | --- | --- | --- | --- | --- | --- |
-| 浪潮 | MD1000 | RK3566 | 2+32 | Armbian_26.05.0_rockchip_md1000_trixie_6.18.33_server_2026.06.01.img.gz | 通过 |
+| <sub>浪潮</sub> | <sub>MD1000</sub> | <sub>RK3566</sub> | <sub>2+32</sub> | <sub>Armbian_26.05.0_rockchip_md1000_<br>trixie_6.18.33_server_2026.06.01.img.gz</sub> | <sub>通过</sub> |
 
 ## 各阶段说明
 
