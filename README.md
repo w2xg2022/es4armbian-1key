@@ -52,11 +52,10 @@ curl -fsSL https://raw.githubusercontent.com/w2xg2022/es4armbian-1key/main/es4ar
 
 ## 手柄热键默认值
 
-XBOX 360
-- SELECT+START
-- SELECT+X
-- SELECT+Y
-
+XBOX 360 / XBOX 360 Compatable 手柄
+- SELECT+START：退出游戏
+- SELECT+X：即时存档
+- SELECT+Y：载入存档
 
 
 ## 素材 (`assets/`)
