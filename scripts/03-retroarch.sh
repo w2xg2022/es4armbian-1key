@@ -67,6 +67,26 @@ for code in $PLATFORMS; do
 done
 chown -R "$GAME_USER:$GAME_USER" "$RA_CFG_DIR/cores"
 
+case " $PLATFORMS " in
+    *" psp "*)
+        log "PSP (ppsspp_libretro.so) 需要 libOpenGL.so.0，安装 libopengl0"
+        apt-get install -y --no-install-recommends libopengl0
+        ;;
+esac
+
+case " $PLATFORMS " in
+    *" n64 "*)
+        log "套用 N64 (parallel_n64) core 设定：angrylion 软件渲染，避免 GL/GLES 硬件上下文不兼容导致崩溃"
+        N64_OPT_DIR="$RA_CFG_DIR/config/ParaLLEl N64"
+        mkdir -p "$N64_OPT_DIR"
+        cat > "$N64_OPT_DIR/ParaLLEl N64.opt" <<'EOF'
+parallel-n64-cpucore = "cached_interpreter"
+parallel-n64-gfxplugin = "angrylion"
+EOF
+        chown -R "$GAME_USER:$GAME_USER" "$N64_OPT_DIR"
+        ;;
+esac
+
 log "安装 Samba 以便上传 ROM"
 apt-get install -y --no-install-recommends samba
 
