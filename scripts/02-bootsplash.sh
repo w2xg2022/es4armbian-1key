@@ -34,15 +34,25 @@ if [ ! -f "$ENV_FILE" ]; then
 fi
 
 # 判断 Armbian 来源：
-#   - ophub（如 MD1000）：预装 Plymouth "armbian" 主题，只需替换 watermark.png
-#   - community（标准 Armbian，如 RK3318/RK3228H）：预装 plymouth/plymouth-themes，
-#     但没有 "armbian" 主题，需建立含自定 watermark.png 的 es4armbian 主题
+#   - community（标准 Armbian，如 RK3318/RK3228H）：/etc/armbian-release 含
+#     VENDOR="Armbian_community"；预装 plymouth/plymouth-themes，但没有
+#     "armbian" 主题，需建立含自定 watermark.png 的 es4armbian 主题
+#   - ophub（如 MD1000）：预装 Plymouth "armbian" 主题（/usr/share/plymouth/themes/armbian），
+#     只需替换 watermark.png
+#   - 其余无法识别的来源：跳过阶段 2，留给阶段 3 继续
 if grep -q '^VENDOR="Armbian_community"' /etc/armbian-release 2>/dev/null; then
     BOARD_TYPE="community"
-else
+elif [ -d /usr/share/plymouth/themes/armbian ]; then
     BOARD_TYPE="ophub"
+else
+    BOARD_TYPE="unknown"
 fi
 log "侦测到 Armbian 来源：$BOARD_TYPE"
+
+if [ "$BOARD_TYPE" = "unknown" ]; then
+    warn "无法识别 Armbian 来源（非标准 community，也找不到 ophub 的 Plymouth armbian 主题），此阶段的隐藏开机跑码机制暂不支援，跳过阶段 2"
+    exit 0
+fi
 
 backup_once "$ENV_FILE"
 
