@@ -26,8 +26,8 @@ THEME_DIR="/usr/share/plymouth/themes/armbian"
 WATERMARK="$THEME_DIR/watermark.png"
 
 if [ ! -f "$ENV_FILE" ]; then
-    err "找不到 $ENV_FILE，此脚本仅支援 Armbian (u-boot + armbianEnv.txt)"
-    exit 1
+    warn "找不到 $ENV_FILE（非 ophub Armbian 环境，例如 devmfc/debian-on-amlogic 等），此阶段的隐藏开机跑码机制暂不支援，跳过阶段 2"
+    exit 0
 fi
 
 backup_once "$ENV_FILE"
