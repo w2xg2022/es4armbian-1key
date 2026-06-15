@@ -43,7 +43,6 @@ curl -fsSL https://raw.githubusercontent.com/w2xg2022/es4armbian-1key/main/es4ar
   - **ophub**（如 MD1000）：`bootlogo=false`，沿用预装的 Plymouth `armbian` 主题，只替换其 `watermark.png`
   - **community**（标准 Armbian，如 RK3318-Box）：`bootlogo=true`，建立自定 `es4armbian` Plymouth 主题（全屏显示 `watermark.png`）
 - 重建 initramfs（含 uInitrd 转换），使开机画面在早期阶段即接管画面
-- 若环境无 `armbianEnv.txt`（如 devmfc/debian-on-amlogic），此阶段暂不支援，自动跳过
 
 ### 阶段 3：部署 RetroArch（`03-retroarch.sh`）
 - 安装 RetroArch 及所选平台对应 core，套用简体中文界面与 SELECT 组合键热键（即时存档/读档/退出游戏）
