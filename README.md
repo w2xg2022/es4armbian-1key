@@ -26,15 +26,15 @@ curl -fsSL https://raw.githubusercontent.com/w2xg2022/es4armbian-1key/main/es4ar
 <table>
 <thead>
 <tr>
-<th style="word-break:keep-all">品牌</th><th style="word-break:keep-all">型号</th><th style="word-break:keep-all">芯片</th><th style="word-break:keep-all">内存+存储</th><th>Armbian 固件</th><th style="word-break:keep-all">测试结果</th>
+<th nowrap>品牌</th><th nowrap>型号</th><th nowrap>芯片</th><th nowrap>内存+存储</th><th>Armbian 固件</th><th nowrap>测试结果</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="word-break:keep-all">浪潮</td><td style="word-break:keep-all">MD1000</td><td style="word-break:keep-all">RK3566</td><td style="word-break:keep-all">2+32</td><td>Armbian_26.05.0_rockchip_md1000_trixie_6.18.33_<br>server_2026.06.01.img.gz</td><td style="word-break:keep-all">通过</td>
+<td nowrap>浪潮</td><td nowrap>MD1000</td><td nowrap>RK3566</td><td nowrap>2+32</td><td>Armbian_26.05.0_rockchip_md1000_trixie_6.18.33_<br>server_2026.06.01.img.gz</td><td nowrap>通过</td>
 </tr>
 <tr>
-<td style="word-break:keep-all">贝尔</td><td style="word-break:keep-all">S-010W-AV2B</td><td style="word-break:keep-all">RK3228H</td><td style="word-break:keep-all">1+8</td><td>Armbian_community_26.8.0-trunk.170_Rk3318-box_<br>trixie_current_6.18.35_minimal.img.xz</td><td style="word-break:keep-all">通过</td>
+<td nowrap>贝尔</td><td nowrap>S-010W-AV2B</td><td nowrap>RK3228H</td><td nowrap>1+8</td><td>Armbian_community_26.8.0&#8209;trunk.170_Rk3318&#8209;box_<br>trixie_current_6.18.35_minimal.img.xz</td><td nowrap>通过</td>
 </tr>
 </tbody>
 </table>
