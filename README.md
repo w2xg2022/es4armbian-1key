@@ -25,8 +25,8 @@ curl -fsSL https://raw.githubusercontent.com/w2xg2022/es4armbian-1key/main/es4ar
 
 | 品牌 | 型号 | 芯片 | 内存+存储 | Armbian 固件 | 测试结果 |
 | --- | --- | --- | --- | --- | --- |
-| 浪潮 | MD1000 | RK3566 | 2+32 | Armbian_26.05.0_rockchip_md1000_<br>trixie_6.18.33_server_2026.06.01.img.gz | 通过 |
-| 贝尔 | S-010W-AV2B | RK3228H | 1+8 | Armbian_community_26.8.0-trunk.170_Rk3318-box_<br>trixie_current_6.18.35_minimal.img.xz | 通过 |
+| 浪潮 | MD1000 | RK3566 | 2+32 | <sub>Armbian_26.05.0_rockchip_md1000_trixie_6.18.33_server_2026.06.01.img.gz</sub> | 通过 |
+| 贝尔 | S-010W-AV2B | RK3228H | 1+8 | <sub>Armbian_community_26.8.0-trunk.170_Rk3318-box_trixie_current_6.18.35_minimal.img.xz</sub> | 通过 |
 
 ## 各阶段说明
 
@@ -66,8 +66,8 @@ curl -fsSL https://raw.githubusercontent.com/w2xg2022/es4armbian-1key/main/es4ar
 
 XBOX 360 / XBOX 360 Compatible 手柄
 - SELECT+START：退出游戏
-- SELECT+X：即时存档
-- SELECT+Y：载入存档
+- SELECT+R1（右肩键）：保存即时存档
+- SELECT+L1（左肩键）：读取即时存档
 
 
 ## 素材 (`assets/`)
@@ -77,7 +77,7 @@ XBOX 360 / XBOX 360 Compatible 手柄
 - `scripts/batocera-wifi`、`batocera-config`、`batocera-bluetooth`：网络/蓝牙设置兼容脚本（同时部署到 `/usr/local/bin/` 与 `/usr/bin/batocera/`，供 `isScriptingSupported()` 硬编码路径检测）
 - `scripts/emuelec-utils`：避免 ES 与 RetroArch 切换时跳出 "not found" 错误信息的兼容脚本
 - `scripts/es-input-to-retroarch.py`：将 ES 手柄设定（`es_input.cfg`）转换为 RetroArch autoconfig 的脚本
-- `retroarch/retroarch.cfg`：预设简体中文界面、SELECT+X/SELECT+Y 即时存档与读档、SELECT+START 退出游戏、`audio_driver = alsa`
+- `retroarch/retroarch.cfg`：预设简体中文界面、SELECT+R1/SELECT+L1 即时存档与读档、SELECT+START 退出游戏、`audio_driver = alsa`
 - `fonts/regular.ttf`、`fonts/bold.ttf`：修正 RetroArch xmb 主题菜单与 OSD 中文字体乱码
 - `emulationstation/es_systems.cfg`、`es_settings.cfg`：各平台对应 RetroArch core 路径与简体中文预设值
 - `music/famicommunist-manifesto.ogg`：ES 主菜单背景音乐（CC0 授权，出自 OpenGameArt Fakebit/Chiptune Music Pack）
