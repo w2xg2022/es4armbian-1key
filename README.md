@@ -23,10 +23,21 @@ curl -fsSL https://raw.githubusercontent.com/w2xg2022/es4armbian-1key/main/es4ar
 
 ## 已测试型号
 
-| 品牌 | 型号 | 芯片 | 内存+存储 | Armbian 固件 | 测试结果 |
-| --- | --- | --- | --- | --- | --- |
-| 浪潮 | MD1000 | RK3566 | 2+32 | Armbian_26.05.0_rockchip_md1000_<br>trixie_6.18.33_server_2026.06.01.img.gz | 通过 |
-| 贝尔 | S-010W-AV2B | RK3228H | 1+8 | Armbian_community_26.8.0-trunk.170_<br>Rk3318-box_trixie_current_6.18.35_minimal.img.xz | 通过 |
+<table>
+<thead>
+<tr>
+<th nowrap>品牌</th><th nowrap>型号</th><th nowrap>芯片</th><th nowrap>内存+存储</th><th>Armbian 固件</th><th nowrap>测试结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td nowrap>浪潮</td><td nowrap>MD1000</td><td nowrap>RK3566</td><td nowrap>2+32</td><td><sub>Armbian_26.05.0_rockchip_md1000_trixie_6.18.33_server_2026.06.01.img.gz</sub></td><td nowrap>通过</td>
+</tr>
+<tr>
+<td nowrap>贝尔</td><td nowrap>S-010W-AV2B</td><td nowrap>RK3228H</td><td nowrap>1+8</td><td><sub>Armbian_community_26.8.0-trunk.170_Rk3318-box_trixie_current_6.18.35_minimal.img.xz</sub></td><td nowrap>通过</td>
+</tr>
+</tbody>
+</table>
 
 ## 各阶段说明
 
