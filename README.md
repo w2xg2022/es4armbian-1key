@@ -31,10 +31,10 @@ curl -fsSL https://raw.githubusercontent.com/w2xg2022/es4armbian-1key/main/es4ar
 </thead>
 <tbody>
 <tr>
-<td style="word-break:keep-all">浪潮</td><td style="word-break:keep-all">MD1000</td><td style="word-break:keep-all">RK3566</td><td style="word-break:keep-all">2+32</td><td style="word-break:break-all">Armbian_26.05.0_rockchip_md1000_trixie_6.18.33_server_2026.06.01.img.gz</td><td style="word-break:keep-all">通过</td>
+<td style="word-break:keep-all">浪潮</td><td style="word-break:keep-all">MD1000</td><td style="word-break:keep-all">RK3566</td><td style="word-break:keep-all">2+32</td><td>Armbian_26.05.0_rockchip_md1000_trixie_6.18.33_<br>server_2026.06.01.img.gz</td><td style="word-break:keep-all">通过</td>
 </tr>
 <tr>
-<td style="word-break:keep-all">贝尔</td><td style="word-break:keep-all">S-010W-AV2B</td><td style="word-break:keep-all">RK3228H</td><td style="word-break:keep-all">1+8</td><td style="word-break:break-all">Armbian_community_26.8.0-trunk.170_Rk3318-box_trixie_current_6.18.35_minimal.img.xz</td><td style="word-break:keep-all">通过</td>
+<td style="word-break:keep-all">贝尔</td><td style="word-break:keep-all">S-010W-AV2B</td><td style="word-break:keep-all">RK3228H</td><td style="word-break:keep-all">1+8</td><td>Armbian_community_26.8.0-trunk.170_Rk3318-box_<br>trixie_current_6.18.35_minimal.img.xz</td><td style="word-break:keep-all">通过</td>
 </tr>
 </tbody>
 </table>
