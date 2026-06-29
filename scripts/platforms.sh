@@ -66,7 +66,7 @@ declare -A PLATFORM_ESNAME=(
     [ps1]="psx"
     [mame]="mame"
     [fbneo]="fbneo"
-    [dos]="dos"
+    [dos]="pc"
     [dc]="dreamcast"
     [apple2]="apple2"
     [n64]="n64"
@@ -102,7 +102,7 @@ declare -A PLATFORM_ROMDIR=(
     [ps1]="psx"
     [mame]="mame"
     [fbneo]="fbneo"
-    [dos]="dos"
+    [dos]="pc"
     [dc]="dreamcast"
     [apple2]="apple2"
     [n64]="n64"
@@ -116,7 +116,6 @@ declare -A PLATFORM_ROMDIR=(
 # 未列出的平台沿用 PLATFORM_ESNAME 作为主题目录名
 declare -A PLATFORM_THEME=(
     [fbneo]="fbn"
-    [dos]="pc"
 )
 
 # 默认安装的 14 个平台（已在 MD1000 上逐一验证可正常进入游戏）。
