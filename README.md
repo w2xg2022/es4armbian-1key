@@ -21,20 +21,20 @@ curl -fsSL https://raw.githubusercontent.com/w2xg2022/es4armbian-1key/main/es4ar
 
 完成后执行 `reboot`，开机将自动进入 EmulationStation。
 
-## 已测试型号
+## 测试通过型号
 
 <table>
 <thead>
 <tr>
-<th nowrap>品牌</th><th nowrap>型号</th><th nowrap>芯片</th><th nowrap>内存+存储</th><th>Armbian 固件</th><th nowrap>测试结果</th>
+<th nowrap>品牌</th><th nowrap>型号</th><th nowrap>芯片</th><th nowrap>RAM+ROM</th><th>Armbian 固件</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td nowrap>浪潮</td><td nowrap>MD1000</td><td nowrap>RK3566</td><td nowrap>2+32</td><td>Armbian_26.05.0_rockchip_md1000_trixie_6.18.33_<br>server_2026.06.01.img.gz</td><td nowrap>通过</td>
+<td nowrap>浪潮</td><td nowrap>MD1000</td><td nowrap>RK3566</td><td nowrap>2+32</td><td>Armbian_26.05.0_rockchip_md1000_trixie_6.18.33_<br>server_2026.06.01.img.gz</td>
 </tr>
 <tr>
-<td nowrap>贝尔</td><td nowrap>S-010W-AV2B</td><td nowrap>RK3228H</td><td nowrap>1+8</td><td>Armbian_community_26.8.0&#8209;trunk.170_Rk3318&#8209;box_<br>trixie_current_6.18.35_minimal.img.xz</td><td nowrap>通过</td>
+<td nowrap>贝尔</td><td nowrap>S-010W-AV2B</td><td nowrap>RK3228H</td><td nowrap>1+8</td><td>Armbian_community_26.8.0&#8209;trunk.170_Rk3318&#8209;box_<br>trixie_current_6.18.35_minimal.img.xz</td>
 </tr>
 </tbody>
 </table>
