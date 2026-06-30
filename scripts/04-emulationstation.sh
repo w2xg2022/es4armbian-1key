@@ -86,6 +86,21 @@ else
     log "主题 $THEME_NAME 已存在，略过下载"
 fi
 
+# NOTE(w2xg2022): es-theme-alekfull-EmueELEC原版menuicons.xml没有定义iconEmuelec，
+# 导致主菜单"EMUELEC设置"图标空白(不是图档问题，是这个key在主题里完全不存在)。
+# Emuelec.png是从Crystal主题的彩色logo用ImageMagick转成白色单色剪影(保留alpha透明度)，
+# 跟主题原生其他图标风格一致，套用colorShift才不会变成黑白反色。
+# 放在if/else外面，不论主题是刚下载还是已存在(旧装置升级)都会套用。
+MENUICONS_XML="$THEMES_DIR/$THEME_NAME/_inc/icons/menuicons.xml"
+if [ -f "$MENUICONS_XML" ] && ! grep -q 'iconEmuelec' "$MENUICONS_XML"; then
+    log "修复EMUELEC设置菜单图标缺失"
+    fetch_asset "emulationstation/Emuelec.png"
+    install -o "$GAME_USER" -g "$GAME_USER" -m 0644 \
+        "$ASSETS_DIR/emulationstation/Emuelec.png" "$THEMES_DIR/$THEME_NAME/_inc/icons/Emuelec.png"
+    sed -i 's|<iconAdvanced>./Advanced.png</iconAdvanced>|<iconAdvanced>./Advanced.png</iconAdvanced>\n            <iconEmuelec>./Emuelec.png</iconEmuelec>|' \
+        "$MENUICONS_XML"
+fi
+
 for code in $PLATFORMS; do
     romdir="${PLATFORM_ROMDIR[$code]:-}"
     [ -z "$romdir" ] && continue
