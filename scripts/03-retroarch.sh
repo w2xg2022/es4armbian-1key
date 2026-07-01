@@ -50,6 +50,41 @@ else
 fi
 chown "$GAME_USER:$GAME_USER" "$RA_CFG_DIR/retroarch.cfg"
 
+log "部署 RA 启动包装脚本（把 ES 选定的语系透传给 RetroArch）"
+# es_systems.cfg 的 <command> 会改成透过这支脚本启动 retroarch：
+# 每次进游戏前，读取 ES 的 es_settings.cfg 语系，换算成 RetroArch 的 user_language
+# 数值写回 retroarch.cfg，再 exec 真正的 retroarch，达成 ES 语系 -> RA 选单语系同步。
+RA_LAUNCH="/usr/local/bin/es4a-ra-launch"
+cat > "$RA_LAUNCH" <<'EOF'
+#!/bin/bash
+# ES 语系 -> RetroArch user_language 透传启动器（由 es4armbian-1key 部署）
+ES_SETTINGS="$HOME/.emulationstation/es_settings.cfg"
+RA_CFG="$HOME/.config/retroarch/retroarch.cfg"
+lang="$(sed -n 's/.*name="Language" value="\([^"]*\)".*/\1/p' "$ES_SETTINGS" 2>/dev/null | head -n1)"
+case "$lang" in
+    zh_CN) n=12 ;;   # 简体中文
+    zh_TW) n=11 ;;   # 繁体中文
+    ja_JP) n=1  ;;
+    ko_KR) n=10 ;;
+    fr_FR) n=2  ;;
+    de_DE) n=4  ;;
+    es_ES) n=3  ;;
+    it_IT) n=5  ;;
+    pt_BR) n=7  ;;
+    ru_RU) n=9  ;;
+    *)     n=0  ;;   # 其余一律英文
+esac
+if [ -f "$RA_CFG" ]; then
+    if grep -q '^user_language' "$RA_CFG"; then
+        sed -i "s/^user_language = .*/user_language = \"$n\"/" "$RA_CFG"
+    else
+        echo "user_language = \"$n\"" >> "$RA_CFG"
+    fi
+fi
+exec "$@"
+EOF
+chmod 0755 "$RA_LAUNCH"
+
 log "从 libretro buildbot 下载所选平台的 core：$PLATFORMS"
 mkdir -p "$RA_CFG_DIR/cores"
 for code in $PLATFORMS; do

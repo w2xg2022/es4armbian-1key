@@ -79,6 +79,9 @@ XBOX 360 / XBOX 360 Compatible 手柄
 - SELECT+START：退出游戏
 - SELECT+R1（右肩键）：保存即时存档
 - SELECT+L1（左肩键）：读取即时存档
+- SELECT+X（左侧面键）：呼出 RetroArch 菜单
+
+> 语系透传：进游戏时会自动把 EmulationStation 的界面语言同步给 RetroArch（简中 / 繁中 / 英文等），RetroArch 菜单不再固定英文。
 
 
 ## 素材 (`assets/`)
@@ -88,7 +91,7 @@ XBOX 360 / XBOX 360 Compatible 手柄
 - `scripts/batocera-wifi`、`batocera-config`、`batocera-bluetooth`：网络/蓝牙设置兼容脚本（同时部署到 `/usr/local/bin/` 与 `/usr/bin/batocera/`，供 `isScriptingSupported()` 硬编码路径检测）
 - `scripts/emuelec-utils`：避免 ES 与 RetroArch 切换时跳出 "not found" 错误信息的兼容脚本
 - `scripts/es-input-to-retroarch.py`：将 ES 手柄设定（`es_input.cfg`）转换为 RetroArch autoconfig 的脚本
-- `retroarch/retroarch.cfg`：预设简体中文界面、SELECT+R1/SELECT+L1 即时存档与读档、SELECT+START 退出游戏、`audio_driver = alsa`
+- `retroarch/retroarch.cfg`：预设简体中文界面、SELECT+R1/SELECT+L1 即时存档与读档、SELECT+START 退出游戏、SELECT+X 呼出菜单、`audio_driver = alsa`
 - `fonts/regular.ttf`、`fonts/bold.ttf`：修正 RetroArch xmb 主题菜单与 OSD 中文字体乱码
 - `emulationstation/es_systems.cfg`、`es_settings.cfg`：各平台对应 RetroArch core 路径与简体中文预设值
 - `music/famicommunist-manifesto.ogg`：ES 主菜单背景音乐（CC0 授权，出自 OpenGameArt Fakebit/Chiptune Music Pack）
