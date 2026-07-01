@@ -10,7 +10,7 @@ require_root
 load_config
 ensure_game_user
 
-ES_RELEASE_URL="https://github.com/w2xg2022/es4armbian/releases/download/latest/emulationstation-armbian-aarch64.zip"
+ES_RELEASE_URL="https://github.com/w2xg2022/es4armbian/releases/latest/download/emulationstation-armbian-aarch64.zip"
 GAME_HOME="$(getent passwd "$GAME_USER" | cut -d: -f6)"
 ES_HOME_CFG="$GAME_HOME/.emulationstation"
 
