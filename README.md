@@ -31,7 +31,7 @@ curl -fsSL https://raw.githubusercontent.com/w2xg2022/es4armbian-1key/main/es4ar
 </thead>
 <tbody>
 <tr>
-<td nowrap>浪潮</td><td nowrap>MD1000</td><td nowrap>RK3566</td><td nowrap>2+32</td><td>Armbian_26.05.0_rockchip_md1000_trixie_6.18.33_<br>server_2026.06.01.img.gz</td>
+<td nowrap>浪潮</td><td nowrap>MD1000</td><td nowrap>RK3566</td><td nowrap>2+32</td><td><a href="https://github.com/w2xg2022/armbian/releases/download/Armbian_trixie_arm64_server_2026.07/Armbian_26.08.0_rockchip_md1000_trixie_6.18.37_server_2026.07.01.img.gz">Armbian_26.08.0_rockchip_md1000_trixie_6.18.37_<br>server_2026.07.01.img.gz</a></td>
 </tr>
 <tr>
 <td nowrap>贝尔</td><td nowrap>S-010W-AV2B</td><td nowrap>RK3228H</td><td nowrap>1+8</td><td>Armbian_community_26.8.0&#8209;trunk.170_Rk3318&#8209;box_<br>trixie_current_6.18.35_minimal.img.xz</td>
@@ -87,7 +87,23 @@ XBOX 360 / XBOX 360 Compatible 手柄
 
 ## 手柄按键位置对齐（Remap）
 
+### 最适用的手柄布局
+
+本项目默认按 **Xbox 式印刷布局**手柄调校（也是市面最常见的布局），实体按键位置为：
+
+```
+        Y(上)
+   X(左)     B(右)
+        A(下)
+```
+
+即 **A 在下、B 在右、X 在左、Y 在上**（对应标准 evdev 顺序 btn0/1/2/3）。用这类手柄开箱即用、手感最一致。若你的手柄是任天堂式布局（A 在右、B 在下），可以照样在 ES「手柄和蓝牙设置」里重新配置，ES 配置界面的方位标签已与实体位置对齐。
+
+### 位置对齐 vs 字母对齐
+
 游戏内 ABXY 采用**实体按键位置对齐**而非字母对齐：手柄下方键固定对应 RetroPad B（PS 手柄为叉/✕）、右方键对应 A（圈/○）、左方键对应 X（方块/□）、上方键对应 Y（三角/△），与真实 PlayStation / SNES 等主机手柄的按键位置手感一致。已对所有默认平台生成对应的 RetroArch remap 档案（`~/.config/retroarch/config/remaps/<core>/`），无需逐一手动设置。
+
+> 为什么不用字母对齐：PlayStation 符号位置是几何固定的（○右/✕下/△上/□左），与 Xbox 布局刚好相反。若按字母对齐，物理下键（印 A）会触发本应在右边的 ○，产生强烈错位感。位置对齐让「按下方键=触发下方符号」，跟真机一致。二者在同一颗手柄上无法兼得，本项目选位置对齐。
 
 
 ## 素材 (`assets/`)
